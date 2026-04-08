@@ -80,7 +80,7 @@ export default function LandingPage() {
       <main style={{ minHeight: '100vh', background: 'var(--background)' }}>
         
         {/* 1. HERO SECTION */}
-        <section className="hero-container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '16px' }}>
+        <section className="hero-container" style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', overflowX: 'hidden' }}>
           
           {/* Left: Value Proposition */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }} className="about-text">
@@ -105,19 +105,19 @@ export default function LandingPage() {
           {/* Right: The Login/Signup Glass Card */}
           <div className="login-card" style={{ boxSizing: 'border-box', width: '100%', maxWidth: '420px', margin: '0 auto', textAlign: 'center', background: 'rgba(255, 255, 255, 0.85)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '2px solid rgba(255,255,255,0.9)', borderRadius: '32px', padding: '32px 24px', boxShadow: '0 12px 35px rgba(245, 109, 42, 0.08)' }}>
             <div className="buddy-gang-mobile" style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-end', marginBottom: '16px' }}>
-               <img src="/assets/green%20buddy.png" alt="Green" style={{ width: '60px', height: '60px', objectFit: 'contain', zIndex: 1, transform: 'rotate(-5deg)' }}/>
-               <img src="/assets/blue%20buddy.png" alt="Blue" style={{ width: '75px', height: '75px', objectFit: 'contain', zIndex: 2, transform: 'translateX(-25px) rotate(-10deg) translateY(-5px)' }}/>
+               <img src="/assets/green%20buddy.png" alt="Green" style={{ width: '55px', height: '55px', objectFit: 'contain', zIndex: 1, transform: 'rotate(-5deg)' }}/>
+               <img src="/assets/blue%20buddy.png" alt="Blue" style={{ marginLeft: '-15px', width: '70px', height: '70px', objectFit: 'contain', zIndex: 2, transform: 'rotate(-10deg) translateY(-5px)' }}/>
                
-               <div style={{ position: 'relative', zIndex: 3, transform: 'translateX(-50px) translateY(-5px)' }}>
-                  <div className="pulse-anim" style={{ position: 'absolute', top: '-45px', left: '50%', transform: 'translateX(-50%)', background: 'white', border: '3px solid #cbd5e0', padding: '6px 14px', borderRadius: '20px', fontWeight: '900', fontSize: '0.9rem', color: 'var(--secondary)', whiteSpace: 'nowrap', boxShadow: 'var(--shadow-sm)' }}>
+               <div style={{ position: 'relative', zIndex: 3, marginLeft: '-20px', transform: 'translateY(-5px)' }}>
+                  <div className="pulse-anim" style={{ position: 'absolute', top: '-40px', left: '50%', transform: 'translateX(-50%)', background: 'white', border: '3px solid #cbd5e0', padding: '6px 14px', borderRadius: '20px', fontWeight: '900', fontSize: '0.85rem', color: 'var(--secondary)', whiteSpace: 'nowrap', boxShadow: 'var(--shadow-sm)' }}>
                     Hi Buddy!
                     <div style={{ position: 'absolute', bottom: '-7px', left: '25%', width: '12px', height: '12px', background: 'white', borderRight: '3px solid #cbd5e0', borderBottom: '3px solid #cbd5e0', transform: 'rotate(45deg)' }}></div>
                   </div>
-                  <img src="/assets/pink%20buddy.png" alt="Pink" style={{ width: '100px', height: '100px', objectFit: 'contain' }}/>
+                  <img src="/assets/pink%20buddy.png" alt="Pink" style={{ width: '90px', height: '90px', objectFit: 'contain' }}/>
                </div>
                
-               <img src="/assets/orange%20buddy.png" alt="Orange" style={{ width: '75px', height: '75px', objectFit: 'contain', zIndex: 2, transform: 'translateX(-70px) rotate(10deg) translateY(2px)' }}/>
-               <img src="/assets/yellow%20buddy.png" alt="Yellow" style={{ width: '60px', height: '60px', objectFit: 'contain', zIndex: 1, transform: 'translateX(-95px) rotate(5deg) translateY(12px)' }}/>
+               <img src="/assets/orange%20buddy.png" alt="Orange" style={{ marginLeft: '-20px', width: '70px', height: '70px', objectFit: 'contain', zIndex: 2, transform: 'rotate(10deg) translateY(2px)' }}/>
+               <img src="/assets/yellow%20buddy.png" alt="Yellow" style={{ marginLeft: '-15px', width: '55px', height: '55px', objectFit: 'contain', zIndex: 1, transform: 'rotate(5deg) translateY(12px)' }}/>
             </div>
             
             <h2 className="login-title" style={{ fontFamily: 'var(--font-katibeh)', color: 'var(--secondary)', lineHeight: '1.1', marginBottom: '8px' }}>
