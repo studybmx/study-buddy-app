@@ -103,8 +103,8 @@ export default function LandingPage() {
           </div>
 
           {/* Right: The Login/Signup Glass Card */}
-          <div className="login-card" style={{ width: '100%', maxWidth: '420px', margin: '0 auto', textAlign: 'center', background: 'rgba(255, 255, 255, 0.85)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '2px solid rgba(255,255,255,0.9)', borderRadius: '32px', padding: '32px 24px', boxShadow: '0 12px 35px rgba(245, 109, 42, 0.08)' }}>
-            <div className="buddy-gang-mobile" style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-end', marginBottom: '16px', paddingLeft: '45px' }}>
+          <div className="login-card" style={{ boxSizing: 'border-box', width: '100%', maxWidth: '420px', margin: '0 auto', textAlign: 'center', background: 'rgba(255, 255, 255, 0.85)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '2px solid rgba(255,255,255,0.9)', borderRadius: '32px', padding: '32px 24px', boxShadow: '0 12px 35px rgba(245, 109, 42, 0.08)' }}>
+            <div className="buddy-gang-mobile" style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-end', marginBottom: '16px' }}>
                <img src="/assets/green%20buddy.png" alt="Green" style={{ width: '60px', height: '60px', objectFit: 'contain', zIndex: 1, transform: 'rotate(-5deg)' }}/>
                <img src="/assets/blue%20buddy.png" alt="Blue" style={{ width: '75px', height: '75px', objectFit: 'contain', zIndex: 2, transform: 'translateX(-25px) rotate(-10deg) translateY(-5px)' }}/>
                
