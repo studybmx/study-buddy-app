@@ -52,6 +52,11 @@ export default function LandingPage() {
         .about-text {
           text-align: left;
         }
+        .buddy-loop-grid {
+          display: grid;
+          grid-template-columns: repeat(5, 1fr);
+          gap: 24px;
+        }
         @media (max-width: 900px) {
           .hero-container {
             grid-template-columns: 1fr;
@@ -68,13 +73,8 @@ export default function LandingPage() {
             font-size: 3.5rem !important;
           }
           .buddy-loop-grid {
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+            grid-template-columns: 1fr !important;
           }
-        }
-        .buddy-loop-grid {
-          display: grid;
-          grid-template-columns: repeat(5, 1fr);
-          gap: 24px;
         }
       `}</style>
       <main style={{ minHeight: '100vh', background: 'var(--background)' }}>

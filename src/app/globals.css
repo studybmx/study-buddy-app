@@ -457,3 +457,42 @@ body.bg-recall-theme { background-color: #EAF6EE !important; background-image: n
 
 .buddy-anim-recall { animation: gentleNod 4s ease-in-out infinite; }
 @keyframes gentleNod { 0%, 100% { transform: rotate(0deg); } 10%, 30% { transform: rotate(-6deg); } 20%, 40% { transform: rotate(6deg); } 50% { transform: rotate(0deg); } }
+
+/* === Adaptaciones Responsivas para Celular === */
+@media (max-width: 768px) {
+  .brand-header {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 16px;
+    margin-bottom: 24px !important;
+  }
+  .header-text {
+    position: relative !important;
+    left: auto !important;
+    transform: none !important;
+    margin-bottom: 16px;
+  }
+  .header-text h1 {
+    font-size: 1.5rem !important;
+  }
+  .progress-bar {
+    flex-wrap: wrap;
+    justify-content: center !important;
+    gap: 12px;
+    padding: 12px;
+  }
+  .step-title {
+    font-size: 2.5rem !important;
+  }
+  .options-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .dashboard-container {
+    padding: 16px;
+  }
+  .card-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+}
