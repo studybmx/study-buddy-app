@@ -263,6 +263,8 @@ export function BuddyLoop({ lesson }: BuddyLoopProps) {
             </h2>
             <img src={currentBuddy.src} alt="Buddy" className={`buddy-img ${currentBuddy.anim}`} />
             <AudioRecorder 
+              day={lesson.day}
+              activityName="Say"
               prompt={`Di en voz alta: "${lesson.steps.say.promptPhrase}"`} 
               onUploadSuccess={async (url) => {
                 await saveSubmission(lesson.day, 'audio', url);
@@ -294,6 +296,8 @@ export function BuddyLoop({ lesson }: BuddyLoopProps) {
               </div>
             ) : (
               <AudioRecorder 
+                day={lesson.day}
+                activityName="Own"
                 prompt="Graba tu nota de voz" 
                 onUploadSuccess={async (url) => {
                   await saveSubmission(lesson.day, 'audio', url);

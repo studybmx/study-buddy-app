@@ -6,9 +6,11 @@ import { supabase } from '../lib/supabase';
 interface AudioRecorderProps {
   onUploadSuccess: (url: string) => Promise<void> | void;
   prompt: string;
+  day?: number;
+  activityName?: string;
 }
 
-export function AudioRecorder({ onUploadSuccess, prompt }: AudioRecorderProps) {
+export function AudioRecorder({ onUploadSuccess, prompt, day, activityName }: AudioRecorderProps) {
   const [isRecording, setIsRecording] = useState(false);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -66,7 +68,15 @@ export function AudioRecorder({ onUploadSuccess, prompt }: AudioRecorderProps) {
     const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
 
     try {
-      const fileName = `${Date.now()}-student-audio.webm`;
+      const { data: { session } } = await supabase.auth.getSession();
+      const email = session?.user?.email || 'unknown_buddy';
+      
+      const safeEmail = email.replace(/[^a-zA-Z0-9@.-]/g, '_');
+      const safeActivity = (activityName || 'general').replace(/[^a-zA-Z0-9-]/g, '_');
+      const currentDay = day !== undefined ? `Dia-${day}` : `Dia-X`;
+      
+      // Crea una estructura de carpetas: email / Dia-X / Actividad_Timestamp
+      const fileName = `${safeEmail}/${currentDay}/${safeActivity}_${Date.now()}.webm`;
       
       // Convertir Blob a File puro (para evitar un bug fantasma de algunos navegadores que congelan el POST)
       const file = new File([audioBlob], fileName, { type: 'audio/webm' });
