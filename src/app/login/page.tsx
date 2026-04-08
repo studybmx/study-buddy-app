@@ -80,15 +80,15 @@ export default function LandingPage() {
       <main style={{ minHeight: '100vh', background: 'var(--background)' }}>
         
         {/* 1. HERO SECTION */}
-        <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '32px 32px 64px 32px' }} className="hero-container">
+        <section className="hero-container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '16px' }}>
           
           {/* Left: Value Proposition */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }} className="about-text">
-            <img src="/assets/Logo%20principal.png" alt="Study Buddy" style={{ width: '100%', maxWidth: '380px', marginBottom: '-40px', clipPath: 'inset(0px 0px 22% 0px)' }} />
-            <h1 className="hero-title" style={{ fontSize: '5rem', fontFamily: 'var(--font-katibeh)', color: 'var(--secondary)', lineHeight: '0.9', marginBottom: '24px' }}>
+            <img src="/assets/Logo%20principal.png" alt="Study Buddy" className="hero-logo desktop-only-margin" style={{ width: '100%', maxWidth: '380px', clipPath: 'inset(0px 0px 22% 0px)' }} />
+            <h1 className="hero-title" style={{ fontSize: '5rem', fontFamily: 'var(--font-katibeh)', color: 'var(--secondary)', lineHeight: '0.9', marginBottom: '16px' }}>
               Aprende Inglés.<br/>Sin Excusas.<br/>Solo Práctica.
             </h1>
-            <p style={{ fontSize: '1.2rem', color: '#4a5568', lineHeight: '1.5', marginBottom: '32px', fontWeight: 500 }}>
+            <p className="hero-desc" style={{ fontSize: '1.2rem', color: '#4a5568', lineHeight: '1.5', marginBottom: '24px', fontWeight: 500 }}>
               El curso basado en <strong style={{color: 'var(--primary)'}}>Neuroeducación</strong> que moldea tu cerebro para crear aprendizajes funcionales y duraderos. 
             </p>
             
@@ -97,14 +97,14 @@ export default function LandingPage() {
                 document.getElementById('method-section')?.scrollIntoView({ behavior: 'smooth' });
               }} 
               className="primary-btn pulse-anim" 
-              style={{ padding: '16px 32px', fontSize: '1.2rem', background: 'var(--primary)', color: 'white', margin: '0 auto', boxShadow: '0 8px 25px rgba(245, 109, 42, 0.4)' }}>
+              style={{ fontSize: '1.2rem', background: 'var(--primary)', color: 'white', margin: '0 auto', boxShadow: '0 8px 25px rgba(245, 109, 42, 0.4)' }}>
               Descubre el Método
             </button>
           </div>
 
           {/* Right: The Login/Signup Glass Card */}
-          <div style={{ width: '100%', maxWidth: '420px', margin: '0 auto', textAlign: 'center', background: 'rgba(255, 255, 255, 0.85)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '2px solid rgba(255,255,255,0.9)', borderRadius: '32px', padding: '40px 32px', boxShadow: '0 12px 35px rgba(245, 109, 42, 0.08)' }}>
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-end', marginBottom: '20px', paddingLeft: '85px' }}>
+          <div className="login-card" style={{ width: '100%', maxWidth: '420px', margin: '0 auto', textAlign: 'center', background: 'rgba(255, 255, 255, 0.85)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '2px solid rgba(255,255,255,0.9)', borderRadius: '32px', padding: '32px 24px', boxShadow: '0 12px 35px rgba(245, 109, 42, 0.08)' }}>
+            <div className="buddy-gang-mobile" style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-end', marginBottom: '16px', paddingLeft: '45px' }}>
                <img src="/assets/green%20buddy.png" alt="Green" style={{ width: '60px', height: '60px', objectFit: 'contain', zIndex: 1, transform: 'rotate(-5deg)' }}/>
                <img src="/assets/blue%20buddy.png" alt="Blue" style={{ width: '75px', height: '75px', objectFit: 'contain', zIndex: 2, transform: 'translateX(-25px) rotate(-10deg) translateY(-5px)' }}/>
                
