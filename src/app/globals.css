@@ -27,6 +27,10 @@
   padding: 0;
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 body {
   background-color: var(--background);
   background-image: radial-gradient(circle at top right, rgba(255,255,255,0.7), transparent 600px);
@@ -452,6 +456,13 @@ body.bg-recall-theme { background-color: #EAF6EE !important; background-image: n
 .buddy-anim-say { animation: pulseBuddy 2.5s ease-in-out infinite; }
 @keyframes pulseBuddy { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
 
+/* Base Font Sizes extracted from inline styles */
+.login-title { font-size: 3rem; }
+.about-title { font-size: 4.5rem; }
+.about-desc { font-size: 1.2rem; }
+.about-img { width: 250px; height: 250px; }
+
+
 .buddy-anim-own { animation: hoverWiggle 4s ease-in-out infinite; }
 @keyframes hoverWiggle { 0%, 100% { transform: translateY(0) rotate(0deg); } 25% { transform: translateY(-4px) rotate(2deg); } 75% { transform: translateY(-4px) rotate(-2deg); } }
 
@@ -460,6 +471,26 @@ body.bg-recall-theme { background-color: #EAF6EE !important; background-image: n
 
 /* === Adaptaciones Responsivas para Celular === */
 @media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+  .login-title { font-size: 2.2rem !important; }
+  .about-title { font-size: 2.5rem !important; }
+  .about-desc { font-size: 1rem !important; }
+  .about-img { 
+     width: 150px !important; 
+     height: 150px !important; 
+     margin-bottom: 0px !important;
+  }
+  .about-container {
+    padding: 32px 16px !important;
+    gap: 24px !important;
+  }
+  .hero-container {
+    padding: 16px !important;
+    gap: 32px !important;
+  }
+  
   .brand-header {
     flex-direction: column !important;
     align-items: center !important;

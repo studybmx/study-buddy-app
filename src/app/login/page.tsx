@@ -120,7 +120,7 @@ export default function LandingPage() {
                <img src="/assets/yellow%20buddy.png" alt="Yellow" style={{ width: '60px', height: '60px', objectFit: 'contain', zIndex: 1, transform: 'translateX(-95px) rotate(5deg) translateY(12px)' }}/>
             </div>
             
-            <h2 style={{ fontSize: '3rem', fontFamily: 'var(--font-katibeh)', color: 'var(--secondary)', lineHeight: '1.1', marginBottom: '8px' }}>
+            <h2 className="login-title" style={{ fontFamily: 'var(--font-katibeh)', color: 'var(--secondary)', lineHeight: '1.1', marginBottom: '8px' }}>
               {isLogin ? "¡Hola Buddy!" : "¿Quieres ser nuestro Buddy?"}
             </h2>
             <p style={{ color: '#718096', marginBottom: '32px', fontWeight: 500, fontSize: '0.95rem', lineHeight: '1.4' }}>
@@ -202,16 +202,16 @@ export default function LandingPage() {
         <section style={{ padding: '80px 32px' }}>
           <div className="about-container" style={{ maxWidth: '1000px', margin: '0 auto', background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', borderRadius: '40px', padding: '64px 48px', gap: '64px', border: '3px solid rgba(255,255,255,0.8)', boxShadow: '0 10px 40px rgba(0,0,0,0.02)' }}>
             <div style={{ flex: '0 0 auto', margin: '0 auto' }}>
-              <img src="/assets/lily.jpg" alt="Lily Terrazas" style={{ width: '250px', height: '250px', borderRadius: '50%', objectFit: 'cover', border: '8px solid #d64f7c', boxShadow: '0 10px 25px rgba(214, 79, 124, 0.3)', transform: 'rotate(-4deg)' }} />
+              <img src="/assets/lily.jpg" alt="Lily Terrazas" className="about-img" style={{ borderRadius: '50%', objectFit: 'cover', border: '8px solid #d64f7c', boxShadow: '0 10px 25px rgba(214, 79, 124, 0.3)', transform: 'rotate(-4deg)' }} />
             </div>
             <div className="about-text" style={{ flex: '1 1 400px' }}>
-              <h2 style={{ fontSize: '4.5rem', fontFamily: 'var(--font-katibeh)', color: 'var(--secondary)', lineHeight: '0.9', marginBottom: '16px' }}>
+              <h2 className="about-title" style={{ fontFamily: 'var(--font-katibeh)', color: 'var(--secondary)', lineHeight: '0.9', marginBottom: '16px' }}>
                 Tu Head Coach:<br/>Lily Terrazas
               </h2>
-              <p style={{ fontSize: '1.2rem', color: '#4a5568', lineHeight: '1.6', fontWeight: 500, marginBottom: '24px' }}>
+              <p className="about-desc" style={{ color: '#4a5568', lineHeight: '1.6', fontWeight: 500, marginBottom: '24px' }}>
                 Soy Maestra con un <strong style={{ color: '#d64f7c' }}>Máster en Educación, Aprendizaje y Desarrollo Educativo (Neuroeducación)</strong>. Construí Study Buddy con un propósito central muy claro: brindar un espacio completamente seguro y libre de frustraciones.
               </p>
-              <p style={{ fontSize: '1.2rem', color: '#4a5568', lineHeight: '1.6', fontWeight: 500 }}>
+              <p className="about-desc" style={{ color: '#4a5568', lineHeight: '1.6', fontWeight: 500 }}>
                 Ya seas niño o adulto, aquí aprenderás de manera funcional **justamente lo que vas a usar en la vida real**. Sin reglas vacías; solo neuroeducación aplicada creando puentes duraderos en tu cerebro.
               </p>
             </div>
