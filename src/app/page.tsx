@@ -32,8 +32,8 @@ export default function Home() {
       <header className="brand-header">
         <img src="/assets/Logo%20principal.png" alt="Study Buddy Logo" className="logo" />
         <div className="header-text">
-          <h1>Hi, buddy!</h1>
-          <p>¿Listo para dominar el inglés hoy?</p>
+          <h1>¡Hola Buddy!</h1>
+          <p>Día {progress.currentDay} de 21</p>
           <button 
             onClick={async () => { await supabase.auth.signOut(); router.push('/login'); }}
             style={{ marginTop: '12px', background: 'none', border: '2px solid #e2e8f0', borderRadius: '12px', padding: '6px 16px', fontSize: '0.8rem', cursor: 'pointer', fontWeight: 'bold', color: '#718096' }}
@@ -42,6 +42,27 @@ export default function Home() {
           </button>
         </div>
       </header>
+
+      {/* BUZÓN DE LILY (INBOX VIP) */}
+      {progress.teacherFeedback && Object.keys(progress.teacherFeedback).length > 0 && (
+        <section style={{ marginBottom: '32px', animation: 'slideUp 0.6s ease-out' }}>
+          <div style={{ background: '#ecfeff', border: '2px solid #06b6d4', borderRadius: '24px', padding: '24px', boxShadow: '0 8px 30px rgba(6, 182, 212, 0.15)' }}>
+            <h3 style={{ fontSize: '1.4rem', color: '#155e75', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+              <span>📬</span> Buzón de tu Head Coach
+            </h3>
+            <p style={{ color: '#0891b2', marginBottom: '16px', fontSize: '0.95rem', fontWeight: 600 }}>¡Lily te ha dejado correcciones VIP! Escúchalas para mejorar rápido.</p>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {Object.entries(progress.teacherFeedback).map(([dayKey, url]) => (
+                <div key={dayKey} style={{ background: 'white', padding: '16px', borderRadius: '16px', border: '1px solid #cffafe', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <span style={{ fontWeight: 'bold', color: '#164e63' }}>Feedback del Día {dayKey}</span>
+                  <audio src={url as string} controls style={{ width: '100%', height: '40px' }} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
       
       <section className="overview-section">
         <ProgressCard />

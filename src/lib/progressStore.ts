@@ -7,6 +7,8 @@ export interface UserProgress {
   audioSubmissions: Record<number, string>;
   textSubmissions: Record<number, string>;
   unlockedBadges: string[];
+  userEmail: string;
+  teacherFeedback: Record<number, string>;
 }
 
 const DEFAULT_PROGRESS: UserProgress = {
@@ -16,6 +18,8 @@ const DEFAULT_PROGRESS: UserProgress = {
   audioSubmissions: {},
   textSubmissions: {},
   unlockedBadges: [],
+  userEmail: '',
+  teacherFeedback: {},
 };
 
 /**
@@ -46,11 +50,13 @@ export const syncStorage = {
           completedDays: data.completed_days || [],
           audioSubmissions: data.audio_submissions || {},
           textSubmissions: data.text_submissions || {},
-          unlockedBadges: data.unlocked_badges || []
+          unlockedBadges: data.unlocked_badges || [],
+          userEmail: data.user_email || session.user.email || '',
+          teacherFeedback: data.teacher_feedback || {}
         };
       } else {
         // No row yet -> new student baseline. 
-        return { ...DEFAULT_PROGRESS, userId: session.user.id };
+        return { ...DEFAULT_PROGRESS, userId: session.user.id, userEmail: session.user.email || '' };
       }
     } catch (e) {
       console.error("Error reading progress", e);
@@ -70,7 +76,9 @@ export const syncStorage = {
         completed_days: progress.completedDays,
         audio_submissions: progress.audioSubmissions,
         text_submissions: progress.textSubmissions,
-        unlocked_badges: progress.unlockedBadges
+        unlocked_badges: progress.unlockedBadges,
+        user_email: progress.userEmail || session.user.email,
+        teacher_feedback: progress.teacherFeedback
       });
 
       if (error) {
