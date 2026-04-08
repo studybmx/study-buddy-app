@@ -33,7 +33,8 @@ export function AudioRecorder({ onUploadSuccess, prompt, day, activityName }: Au
       };
 
       recorder.onstop = () => {
-        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+        const mimeType = mediaRecorderRef.current?.mimeType || 'audio/webm';
+        const audioBlob = new Blob(audioChunksRef.current, { type: mimeType });
         const url = URL.createObjectURL(audioBlob);
         setAudioUrl(url);
       };
@@ -63,9 +64,10 @@ export function AudioRecorder({ onUploadSuccess, prompt, day, activityName }: Au
     if (audioChunksRef.current.length === 0) return;
     setIsUploading(true);
     setUploadError(null);
-    setUploadStatus("Iniciando...");
-
-    const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+    // Get dynamic mime type to prevent Safari crashes
+    const mimeType = mediaRecorderRef.current?.mimeType || 'audio/webm';
+    const extension = mimeType.includes('mp4') ? 'm4a' : 'webm';
+    const audioBlob = new Blob(audioChunksRef.current, { type: mimeType });
 
     try {
       const { data: { session } } = await supabase.auth.getSession();
@@ -75,11 +77,11 @@ export function AudioRecorder({ onUploadSuccess, prompt, day, activityName }: Au
       const safeActivity = (activityName || 'general').replace(/[^a-zA-Z0-9-]/g, '_');
       const currentDay = day !== undefined ? `Dia-${day}` : `Dia-X`;
       
-      // Crea una estructura de carpetas: email / Dia-X / Actividad_Timestamp
-      const fileName = `${safeEmail}/${currentDay}/${safeActivity}_${Date.now()}.webm`;
+      // Crea una estructura de carpetas dinámica
+      const fileName = `${safeEmail}/${currentDay}/${safeActivity}_${Date.now()}.${extension}`;
       
-      // Convertir Blob a File puro (para evitar un bug fantasma de algunos navegadores que congelan el POST)
-      const file = new File([audioBlob], fileName, { type: 'audio/webm' });
+      // Convertir Blob a File puro
+      const file = new File([audioBlob], fileName, { type: mimeType });
 
       setUploadStatus("Contactando a Supabase...");
       const { data, error } = await supabase.storage
