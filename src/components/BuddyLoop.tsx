@@ -74,28 +74,51 @@ export function BuddyLoop({ lesson }: BuddyLoopProps) {
   };
 
   const playAudioSpeech = (text: string) => {
-    if (!window.speechSynthesis) {
+    if (typeof window === 'undefined' || !window.speechSynthesis) {
       alert("Tu navegador actual no soporta la lectura de audio automática.");
       return;
     }
-    // Cancel any ongoing speech
+
     window.speechSynthesis.cancel();
     
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'en-US'; // American English
-    utterance.rate = 0.85;    // Slower for learners
+    utterance.rate = 0.85; // Más lento para estudiantes
+    utterance.pitch = 1.0; 
+    utterance.lang = 'en-US';
 
-    // Forzar a buscar la voz más natural posible instalada (Ej. Google US English, Samantha Mас)
-    const voices = window.speechSynthesis.getVoices();
-    const premiumVoice = voices.find(v => 
-      v.lang === 'en-US' && (v.name.includes('Google') || v.name.includes('Samantha') || v.name.includes('Ava') || v.name.includes('Siri'))
-    ) || voices.find(v => v.lang.startsWith('en-'));
+    const trySpeak = () => {
+      const voices = window.speechSynthesis.getVoices();
+      const enVoices = voices.filter(v => v.lang.startsWith('en-'));
 
-    if (premiumVoice) {
-      utterance.voice = premiumVoice;
+      // Sistema de puntuación para priorizar las voces más realistas
+      const getVoiceScore = (v: SpeechSynthesisVoice) => {
+         const name = v.name.toLowerCase();
+         let score = 0;
+         if (name.includes('natural') || name.includes('online')) score += 10; // Edge Natural voices (very high quality)
+         if (name.includes('google us english')) score += 8; // Chrome high quality
+         if (name.includes('samantha') || name.includes('ava (premium)') || name.includes('siri')) score += 7; // Apple premium
+         if (name.includes('premium') || name.includes('enhanced')) score += 6;
+         if (v.lang === 'en-US') score += 5; 
+         if (v.localService === false) score += 2; // Cloud-based voices tend to be smoother
+         return score;
+      };
+
+      if (enVoices.length > 0) {
+        enVoices.sort((a, b) => getVoiceScore(b) - getVoiceScore(a));
+        utterance.voice = enVoices[0]; // Seleccionar la mejor rankeada
+      }
+
+      window.speechSynthesis.speak(utterance);
+    };
+
+    // Chrome y Safari pueden requerir milisegundos para cargar la lista de voces
+    if (window.speechSynthesis.getVoices().length === 0) {
+      window.speechSynthesis.addEventListener('voiceschanged', trySpeak, { once: true });
+      // Fallback en caso de que el evento no dispare
+      setTimeout(() => { if (!window.speechSynthesis.speaking) trySpeak(); }, 500);
+    } else {
+      trySpeak();
     }
-
-    window.speechSynthesis.speak(utterance);
   };
 
   const handleFinishDay = async () => {
