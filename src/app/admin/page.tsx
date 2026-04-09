@@ -163,6 +163,7 @@ export default function AdminDashboard() {
                 </button>
               ))}
             </div>
+            </div>
           </div>
 
           {/* Col 2: Student Details & Inbox */}
