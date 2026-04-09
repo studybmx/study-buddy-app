@@ -84,6 +84,17 @@ export function BuddyLoop({ lesson }: BuddyLoopProps) {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'en-US'; // American English
     utterance.rate = 0.85;    // Slower for learners
+
+    // Forzar a buscar la voz más natural posible instalada (Ej. Google US English, Samantha Mас)
+    const voices = window.speechSynthesis.getVoices();
+    const premiumVoice = voices.find(v => 
+      v.lang === 'en-US' && (v.name.includes('Google') || v.name.includes('Samantha') || v.name.includes('Ava') || v.name.includes('Siri'))
+    ) || voices.find(v => v.lang.startsWith('en-'));
+
+    if (premiumVoice) {
+      utterance.voice = premiumVoice;
+    }
+
     window.speechSynthesis.speak(utterance);
   };
 
