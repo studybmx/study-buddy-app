@@ -9,6 +9,7 @@ export default function LandingPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userName, setUserName] = useState('');
+  const [inviteCode, setInviteCode] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -19,11 +20,38 @@ export default function LandingPage() {
     if (isLogin) {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) {
-        alert("Ups, no te reconocemos: " + error.message);
+        alert("Error al iniciar sesión: " + error.message);
       } else {
         router.push('/');
       }
     } else {
+      // 1. Verify and Consume Code FIRST
+      const { data: codeData, error: codeErr } = await supabase
+         .from('invite_codes')
+         .select('*')
+         .eq('code', inviteCode.trim().toUpperCase())
+         .eq('used', false)
+         .single();
+         
+      if (codeErr || !codeData) {
+         setLoading(false);
+         alert("❌ Código inválido o ya fue usado. Verifica que lo escribiste bien.");
+         return;
+      }
+      
+      // 2. Consume it
+      const { error: burnErr } = await supabase
+         .from('invite_codes')
+         .update({ used: true })
+         .eq('code', inviteCode.trim().toUpperCase());
+         
+      if (burnErr) {
+         setLoading(false);
+         alert("❌ Hubo un error de conexión validando tu código.");
+         return;
+      }
+
+      // 3. Register user
       const { error } = await supabase.auth.signUp({ 
         email, 
         password,
@@ -136,15 +164,26 @@ export default function LandingPage() {
 
             <form onSubmit={handleAuth} style={{ display: 'flex', flexDirection: 'column', gap: '16px', textAlign: 'left' }}>
               {!isLogin && (
-                <input 
-                  type="text" 
-                  placeholder="Tu Nombre o Apodo (Ej. Lily)" 
-                  className="text-input" 
-                  value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
-                  required={!isLogin}
-                  style={{ fontWeight: 500, boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.03)' }}
-                />
+                <>
+                  <input 
+                    type="text" 
+                    placeholder="Tu Nombre o Apodo (Ej. Lily)" 
+                    className="text-input" 
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                    required={!isLogin}
+                    style={{ fontWeight: 500, boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.03)' }}
+                  />
+                  <input 
+                    type="text" 
+                    placeholder="Código VIP (Ej. BRAIN-8X2M)" 
+                    className="text-input" 
+                    value={inviteCode}
+                    onChange={(e) => setInviteCode(e.target.value.toUpperCase())}
+                    required={!isLogin}
+                    style={{ fontWeight: 'bold', letterSpacing: '1px', border: '2px solid var(--primary)', boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.03)' }}
+                  />
+                </>
               )}
               <input 
                 type="email" 

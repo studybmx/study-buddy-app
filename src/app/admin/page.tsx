@@ -11,6 +11,7 @@ const ADMIN_EMAIL = 'study.bmx@gmail.com';
 export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [students, setStudents] = useState<UserProgress[]>([]);
+  const [activeCodes, setActiveCodes] = useState<string[]>([]);
   const [selectedStudent, setSelectedStudent] = useState<UserProgress | null>(null);
   const [feedbackRecordingDay, setFeedbackRecordingDay] = useState<number | null>(null);
   const router = useRouter();
@@ -27,6 +28,26 @@ export default function AdminDashboard() {
       return;
     }
     fetchStudents();
+    fetchCodes();
+  };
+
+  const fetchCodes = async () => {
+    const { data } = await supabase.from('invite_codes').select('code').eq('used', false);
+    if (data) setActiveCodes(data.map(d => d.code));
+  };
+
+  const generateFunnyCode = async () => {
+    const prefixes = ['BUDDY', 'BRAIN', 'SMART', 'GENIUS', 'FOCUS', 'NEURO', 'CHAMP'];
+    const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let suffix = '';
+    for (let i = 0; i < 4; i++) {
+       suffix += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    const newCode = `${prefix}-${suffix}`;
+    
+    await supabase.from('invite_codes').insert({ code: newCode });
+    fetchCodes();
   };
 
   const fetchStudents = async () => {
@@ -94,9 +115,36 @@ export default function AdminDashboard() {
         </header>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 1fr) 2fr', gap: '24px' }}>
-          {/* Col 1: Student List */}
-          <div style={{ background: 'white', borderRadius: '24px', padding: '24px', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}>
-            <h2 style={{ fontSize: '1.2rem', marginBottom: '16px', color: '#334155' }}>Tus Alumnos ({students.length})</h2>
+          {/* Col 1: Vault & Student List */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <div style={{ background: 'var(--primary)', borderRadius: '24px', padding: '24px', boxShadow: '0 4px 6px rgba(0,0,0,0.05)', color: 'white' }}>
+              <h2 style={{ fontSize: '1.2rem', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>🔐 Bóveda VIP</h2>
+              <p style={{ fontSize: '0.85rem', opacity: 0.9, marginBottom: '16px' }}>Códigos únicos para vender tus accesos.</p>
+              <button 
+                onClick={generateFunnyCode} 
+                style={{ width: '100%', padding: '12px', borderRadius: '12px', border: 'none', background: 'white', color: 'var(--primary)', fontWeight: 'bold', cursor: 'pointer', marginBottom: '16px', fontSize: '0.95rem' }}>
+                ✨ Generar Nuevo Código
+              </button>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <p style={{ fontSize: '0.8rem', fontWeight: 'bold', opacity: 0.8 }}>Códigos Válidos Sin Usar:</p>
+                {activeCodes.length === 0 ? (
+                   <div style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.1)', padding: '8px', borderRadius: '8px' }}>No hay llaves. ¡Genera una!</div>
+                ) : (
+                   activeCodes.map(c => (
+                     <div key={c} style={{ background: 'rgba(255,255,255,0.2)', padding: '10px 12px', borderRadius: '8px', fontSize: '1.1rem', fontWeight: 'bold', fontFamily: 'monospace', letterSpacing: '2px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                       {c}
+                       <button 
+                         onClick={() => { navigator.clipboard.writeText(c); alert("¡Código copiado!"); }}
+                         style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer', fontSize: '1.2rem'}} title="Copiar">📋</button>
+                     </div>
+                   ))
+                )}
+              </div>
+            </div>
+
+            <div style={{ background: 'white', borderRadius: '24px', padding: '24px', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}>
+              <h2 style={{ fontSize: '1.2rem', marginBottom: '16px', color: '#334155' }}>Tus Alumnos ({students.length})</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               {students.map(s => (
                 <button 
