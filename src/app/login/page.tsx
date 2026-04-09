@@ -131,7 +131,7 @@ export default function LandingPage() {
               onClick={() => {
                 document.getElementById('method-section')?.scrollIntoView({ behavior: 'smooth' });
               }} 
-              className="primary-btn pulse-anim" 
+              className="primary-btn" 
               style={{ fontSize: '1.2rem', background: 'var(--primary)', color: 'white', margin: '0 auto', boxShadow: '0 8px 25px rgba(245, 109, 42, 0.4)' }}>
               Descubre el Método
             </button>
@@ -144,7 +144,7 @@ export default function LandingPage() {
                <img src="/assets/blue%20buddy.png" alt="Blue" style={{ marginLeft: '-15px', width: '70px', height: '70px', objectFit: 'contain', zIndex: 2, transform: 'rotate(-10deg) translateY(-5px)' }}/>
                
                <div style={{ position: 'relative', zIndex: 3, marginLeft: '-20px', transform: 'translateY(-5px)' }}>
-                  <div className="pulse-anim" style={{ position: 'absolute', top: '-40px', left: '50%', transform: 'translateX(-50%)', background: 'white', border: '3px solid #cbd5e0', padding: '6px 14px', borderRadius: '20px', fontWeight: '900', fontSize: '0.85rem', color: 'var(--secondary)', whiteSpace: 'nowrap', boxShadow: 'var(--shadow-sm)' }}>
+                  <div style={{ position: 'absolute', top: '-40px', left: '50%', transform: 'translateX(-50%)', background: 'white', border: '3px solid #cbd5e0', padding: '6px 14px', borderRadius: '20px', fontWeight: '900', fontSize: '0.85rem', color: 'var(--secondary)', whiteSpace: 'nowrap', boxShadow: 'var(--shadow-sm)' }}>
                     Hi Buddy!
                     <div style={{ position: 'absolute', bottom: '-7px', left: '25%', width: '12px', height: '12px', background: 'white', borderRight: '3px solid #cbd5e0', borderBottom: '3px solid #cbd5e0', transform: 'rotate(45deg)' }}></div>
                   </div>
@@ -204,7 +204,7 @@ export default function LandingPage() {
                 style={{ fontWeight: 500, boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.03)' }}
               />
               
-              <button type="submit" className="primary-btn pulse-anim" disabled={loading} style={{ marginTop: '12px', width: '100%', background: isLogin ? 'var(--primary)' : 'var(--secondary)' }}>
+              <button type="submit" className="primary-btn" disabled={loading} style={{ marginTop: '12px', width: '100%', background: isLogin ? 'var(--primary)' : 'var(--secondary)' }}>
                 {loading ? "Comprobando..." : isLogin ? "Entrar al curso" : "Crear mi cuenta"}
               </button>
             </form>
