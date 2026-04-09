@@ -15,15 +15,19 @@ export default function Home() {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        router.push('/login');
-      } else {
+      try {
+        const { data: { session }, error } = await supabase.auth.getSession();
+        if (error || !session) {
+          window.location.href = '/login'; // Failsafe redirect
+          return;
+        }
         setAuthChecked(true);
+      } catch (e) {
+        window.location.href = '/login';
       }
     };
     checkAuth();
-  }, [router]);
+  }, []);
 
   if (!authChecked || !isLoaded) return <main style={{ padding: '2rem', textAlign: 'center', marginTop: '20vh', color: '#a0aec0', fontWeight: 'bold' }}>Validando acceso VIP...</main>;
 
