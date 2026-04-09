@@ -8,6 +8,7 @@ export interface UserProgress {
   textSubmissions: Record<number, string>;
   unlockedBadges: string[];
   userEmail: string;
+  userName: string;
   teacherFeedback: Record<number, string>;
 }
 
@@ -19,6 +20,7 @@ const DEFAULT_PROGRESS: UserProgress = {
   textSubmissions: {},
   unlockedBadges: [],
   userEmail: '',
+  userName: '',
   teacherFeedback: {},
 };
 
@@ -52,11 +54,12 @@ export const syncStorage = {
           textSubmissions: data.text_submissions || {},
           unlockedBadges: data.unlocked_badges || [],
           userEmail: data.user_email || session.user.email || '',
+          userName: data.user_name || session.user.user_metadata?.name || '',
           teacherFeedback: data.teacher_feedback || {}
         };
       } else {
         // No row yet -> new student baseline. 
-        return { ...DEFAULT_PROGRESS, userId: session.user.id, userEmail: session.user.email || '' };
+        return { ...DEFAULT_PROGRESS, userId: session.user.id, userEmail: session.user.email || '', userName: session.user.user_metadata?.name || '' };
       }
     } catch (e) {
       console.error("Error reading progress", e);
@@ -78,6 +81,7 @@ export const syncStorage = {
         text_submissions: progress.textSubmissions,
         unlocked_badges: progress.unlockedBadges,
         user_email: progress.userEmail || session.user.email,
+        user_name: progress.userName || session.user.user_metadata?.name,
         teacher_feedback: progress.teacherFeedback
       });
 

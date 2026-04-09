@@ -32,7 +32,7 @@ export default function Home() {
       <header className="brand-header">
         <img src="/assets/Logo%20principal.png" alt="Study Buddy Logo" className="logo" />
         <div className="header-text">
-          <h1>¡Hola Buddy!</h1>
+          <h1>Hi Buddy!</h1>
           <p>Día {progress.currentDay} de 21</p>
           <button 
             onClick={async () => { await supabase.auth.signOut(); router.push('/login'); }}
@@ -48,9 +48,9 @@ export default function Home() {
         <section style={{ marginBottom: '32px', animation: 'slideUp 0.6s ease-out' }}>
           <div style={{ background: '#ecfeff', border: '2px solid #06b6d4', borderRadius: '24px', padding: '24px', boxShadow: '0 8px 30px rgba(6, 182, 212, 0.15)' }}>
             <h3 style={{ fontSize: '1.4rem', color: '#155e75', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
-              <span>📬</span> Buzón de tu Head Coach
+              <span>📬</span> Buzón personal de {progress.userName ? progress.userName : 'Buddy'}
             </h3>
-            <p style={{ color: '#0891b2', marginBottom: '16px', fontSize: '0.95rem', fontWeight: 600 }}>¡Lily te ha dejado correcciones VIP! Escúchalas para mejorar rápido.</p>
+            <p style={{ color: '#0891b2', marginBottom: '16px', fontSize: '0.95rem', fontWeight: 600 }}>¡Oye Buddy! Lily escuchó tu práctica y te dejó este mensaje de retroalimentación. ¡Dale play! 🎧</p>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {Object.entries(progress.teacherFeedback).map(([dayKey, url]) => (

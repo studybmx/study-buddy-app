@@ -8,6 +8,7 @@ export default function LandingPage() {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -23,7 +24,13 @@ export default function LandingPage() {
         router.push('/');
       }
     } else {
-      const { error } = await supabase.auth.signUp({ email, password });
+      const { error } = await supabase.auth.signUp({ 
+        email, 
+        password,
+        options: {
+          data: { name: userName || email.split('@')[0] }
+        }
+      });
       if (error) {
         alert("Error al registrarte: " + error.message);
       } else {
@@ -121,13 +128,24 @@ export default function LandingPage() {
             </div>
             
             <h2 className="login-title" style={{ fontFamily: 'var(--font-katibeh)', color: 'var(--secondary)', lineHeight: '1.1', marginBottom: '8px' }}>
-              {isLogin ? "¡Hola Buddy!" : "¿Quieres ser nuestro Buddy?"}
+              {isLogin ? "Hi Buddy!" : "¿Quieres ser nuestro Buddy?"}
             </h2>
             <p style={{ color: '#718096', marginBottom: '32px', fontWeight: 500, fontSize: '0.95rem', lineHeight: '1.4' }}>
               {isLogin ? "Inicia sesión para dominar el inglés de hoy." : "Crea tu cuenta VIP y cambia tu forma de aprender."}
             </p>
 
             <form onSubmit={handleAuth} style={{ display: 'flex', flexDirection: 'column', gap: '16px', textAlign: 'left' }}>
+              {!isLogin && (
+                <input 
+                  type="text" 
+                  placeholder="Tu Nombre o Apodo (Ej. Lily)" 
+                  className="text-input" 
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                  required={!isLogin}
+                  style={{ fontWeight: 500, boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.03)' }}
+                />
+              )}
               <input 
                 type="email" 
                 placeholder="Email (Ej. buddy@gmail.com)" 

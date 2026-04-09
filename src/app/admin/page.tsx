@@ -48,6 +48,7 @@ export default function AdminDashboard() {
         textSubmissions: d.text_submissions || {},
         unlockedBadges: d.unlocked_badges || [],
         userEmail: d.user_email || 'Sin correo',
+        userName: d.user_name || '',
         teacherFeedback: d.teacher_feedback || {}
       }));
       setStudents(parsedStudents);
@@ -109,7 +110,7 @@ export default function AdminDashboard() {
                     fontWeight: 600, fontSize: '0.95rem'
                   }}
                 >
-                  {s.userEmail}
+                  {s.userName ? `${s.userName} (${s.userEmail})` : s.userEmail}
                   <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginTop: '4px' }}>Va en el Día {s.currentDay}</div>
                 </button>
               ))}
@@ -125,7 +126,10 @@ export default function AdminDashboard() {
               </div>
             ) : (
               <div>
-                <h3 style={{ fontSize: '1.5rem', marginBottom: '8px', color: '#1e293b' }}>{selectedStudent.userEmail}</h3>
+                <h3 style={{ fontSize: '1.5rem', marginBottom: '8px', color: '#1e293b' }}>
+                   {selectedStudent.userName ? `${selectedStudent.userName} ` : ''}
+                   <span style={{ fontSize: '1rem', color: '#64748b' }}>({selectedStudent.userEmail})</span>
+                </h3>
                 <div style={{ display: 'flex', gap: '12px', marginBottom: '32px' }}>
                   <span style={{ background: '#dcfce7', color: '#166534', padding: '4px 12px', borderRadius: '12px', fontSize: '0.85rem', fontWeight: 'bold' }}>Día Actual: {selectedStudent.currentDay}</span>
                   <span style={{ background: '#fef3c7', color: '#b45309', padding: '4px 12px', borderRadius: '12px', fontSize: '0.85rem', fontWeight: 'bold' }}>Días Completados: {selectedStudent.completedDays.length}</span>
