@@ -22,7 +22,7 @@ export default function LandingPage() {
       if (error) {
         alert("Error al iniciar sesión: " + error.message);
       } else {
-        router.push('/');
+        router.push('/dashboard');
       }
     } else {
       // 1. Verify and Consume Code FIRST
