@@ -17,6 +17,13 @@ const katibeh = Katibeh({
 export const metadata: Metadata = {
   title: "Study Buddy MVP",
   description: "Async English speaking program for beginners",
+  manifest: "/manifest.json",
+  themeColor: "#E4552D",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Study Buddy",
+  },
 };
 
 import { ProgressProvider } from "../lib/ProgressContext";
